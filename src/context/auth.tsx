@@ -42,13 +42,16 @@ export function AuthProvider(props: AuthProvider) {
 
     localStorage.setItem('@dowhile:token', token);
 
+    api.defaults.headers.common.authorization = `Bearer ${token}`;
+
     setUser(user);
   }
 
-  function signOut() {
+  const signOut = () => {
     setUser(null);
     localStorage.removeItem('@dowhile:token');
-  }
+    location.reload();
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('@dowhile:token');
